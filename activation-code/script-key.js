@@ -15,7 +15,12 @@ window.setPdfId = function (value) {
 };
 
 window.setTargetUrl = function (value) {
-    targetUrl = value;
+    // Strip 'activation-code/' prefix if present (since we're already in that folder)
+    if (value.startsWith('activation-code/')) {
+        targetUrl = value.substring('activation-code/'.length);
+    } else {
+        targetUrl = value;
+    }
 };
 
 // Cookie helper functions
@@ -232,7 +237,7 @@ window.verifyActivationKey = async function () {
             setCookie(cookieName, enteredKey, 365);
 
             setTimeout(() => {
-                window.location.href = targetUrl + "?pdf_id=" + encodeURIComponent(pdfId) + "&course=" + courseValue;
+                window.location.href = "../" + targetUrl + "?pdf_id=" + encodeURIComponent(pdfId) + "&course=" + courseValue;
             }, 2000);
             return;
         }
@@ -263,7 +268,7 @@ window.verifyActivationKey = async function () {
                 }
 
                 setTimeout(() => {
-                    window.location.href = targetUrl + "?pdf_id=" + encodeURIComponent(pdfId) + "&course=" + courseValue;
+                    window.location.href = "../" + targetUrl + "?pdf_id=" + encodeURIComponent(pdfId) + "&course=" + courseValue;
                 }, 1500);
                 return;
             }
@@ -279,7 +284,7 @@ window.verifyActivationKey = async function () {
             }
 
             setTimeout(() => {
-                window.location.href = targetUrl + "?pdf_id=" + encodeURIComponent(pdfId) + "&course=" + courseValue;
+                window.location.href = "../" + targetUrl + "?pdf_id=" + encodeURIComponent(pdfId) + "&course=" + courseValue;
             }, 1500);
             return;
         }
@@ -319,4 +324,3 @@ if (urlParams.has('pdf_id')) {
 if (urlParams.has('targetUrl')) {
     setTargetUrl(urlParams.get('targetUrl'));
 }
-
