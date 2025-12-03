@@ -15,12 +15,7 @@ window.setPdfId = function (value) {
 };
 
 window.setTargetUrl = function (value) {
-    // Strip 'activation-code/' prefix if present (since we're already in that folder)
-    if (value.startsWith('activation-code/')) {
-        targetUrl = value.substring('activation-code/'.length);
-    } else {
-        targetUrl = value;
-    }
+    targetUrl = value;
 };
 
 // Cookie helper functions
@@ -324,3 +319,4 @@ if (urlParams.has('pdf_id')) {
 if (urlParams.has('targetUrl')) {
     setTargetUrl(urlParams.get('targetUrl'));
 }
+
